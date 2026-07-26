@@ -1,26 +1,151 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fff6e8;
+  --foreground: #211315;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-cream: #fff6e8;
+  --color-cream-soft: #fffaf2;
+  --color-hot-pink: #ff1493;
+  --color-hot-pink-light: #ff8bc7;
+  --color-ink: #211315;
+  --color-gold: #b88746;
   --font-sans: var(--font-geist-sans);
+  --font-serif: var(--font-cormorant);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: #ff1493;
+  color: #fff6e8;
+}
+
+a {
+  text-underline-offset: 4px;
+}
+
+.button-primary,
+.button-secondary,
+.button-ghost,
+.carousel-button,
+.carousel-button-dark {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0.8rem 1.3rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.button-primary:hover,
+.button-secondary:hover,
+.button-ghost:hover,
+.carousel-button:hover,
+.carousel-button-dark:hover {
+  transform: translateY(-1px);
+}
+
+.button-primary {
+  border: 1px solid #ff1493;
+  background: #ff1493;
+  color: #fff6e8;
+  box-shadow: 0 18px 42px rgba(255, 20, 147, 0.24);
+}
+
+.button-primary:hover {
+  background: #d90076;
+  border-color: #d90076;
+}
+
+.button-secondary {
+  border: 1px solid rgba(255, 20, 147, 0.28);
+  color: #ff1493;
+}
+
+.button-secondary:hover {
+  border-color: #ff1493;
+  background: rgba(255, 20, 147, 0.08);
+}
+
+.button-ghost {
+  border: 1px solid rgba(33, 19, 21, 0.14);
+  color: #211315;
+}
+
+.button-ghost:hover {
+  border-color: rgba(255, 20, 147, 0.38);
+  color: #ff1493;
+}
+
+.button-ghost-light {
+  border-color: rgba(255, 246, 232, 0.35);
+  color: #fff6e8;
+}
+
+.button-ghost-light:hover {
+  border-color: #ff8bc7;
+  color: #ff8bc7;
+}
+
+.section-kicker {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #ff1493;
+}
+
+.section-title {
+  margin-top: 0.45rem;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(2.5rem, 5vw, 4.75rem);
+  line-height: 0.98;
+  color: #211315;
+}
+
+.carousel-button,
+.carousel-button-dark {
+  min-height: 2.75rem;
+  width: 2.75rem;
+  padding: 0;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.carousel-button {
+  border: 1px solid rgba(255, 20, 147, 0.28);
+  color: #ff1493;
+}
+
+.carousel-button:hover {
+  background: rgba(255, 20, 147, 0.08);
+  border-color: #ff1493;
+}
+
+.carousel-button-dark {
+  border: 1px solid rgba(255, 246, 232, 0.22);
+  color: #fff6e8;
+}
+
+.carousel-button-dark:hover {
+  background: rgba(255, 20, 147, 0.16);
+  border-color: #ff8bc7;
 }
