@@ -243,6 +243,75 @@ export const customerPhotos = [
   imagePath("customer-photos/customer-review-3.jpeg"),
 ];
 
+const galleryProductCopy: Record<
+  string,
+  {
+    name: string;
+    occasions: string[];
+    summary: string;
+    description: string;
+    details: string;
+  }
+> = {
+  lace: {
+    name: "Lace Option",
+    occasions: ["weddings", "aso-ebi-groups", "birthdays"],
+    summary: "A lace option for weddings, owambe, birthdays, and aso-ebi planning.",
+    description:
+      "A lace option from the Goodness & Mercy Ventures gallery. Message us with the option number so we can confirm colour, yardage, and current availability.",
+    details:
+      "Send this option on WhatsApp with your event date, colour preference, and quantity. We will help confirm availability and suggest matching jewelry or bags.",
+  },
+  ankara: {
+    name: "Ankara Option",
+    occasions: ["birthdays", "aso-ebi-groups"],
+    summary: "An Ankara print option for birthdays, family events, and group outfits.",
+    description:
+      "An Ankara option from the Goodness & Mercy Ventures gallery. Message us with the option number so we can confirm current stock and styling ideas.",
+    details:
+      "Send this option on WhatsApp with your event type and preferred colour direction. We will help confirm yardage and matching accessories.",
+  },
+  jewelry: {
+    name: "Jewelry Option",
+    occasions: ["weddings", "birthdays", "aso-ebi-groups"],
+    summary: "A jewelry option for finishing lace, Ankara, gele, and evening looks.",
+    description:
+      "A jewelry option from the Goodness & Mercy Ventures gallery. Message us with the option number and a photo of your outfit for matching help.",
+    details:
+      "Send this option on WhatsApp with your fabric, dress, or gele photo. We will help you choose a polished match for the full look.",
+  },
+  bags: {
+    name: "Bag Option",
+    occasions: ["weddings", "birthdays"],
+    summary: "A bag option for church, receptions, birthday dinners, and owambe looks.",
+    description:
+      "A bag option from the Goodness & Mercy Ventures gallery. Message us with the option number so we can confirm availability and matching ideas.",
+    details:
+      "Send this option on WhatsApp with your outfit colour and occasion type. We will help you pick a bag that completes the look.",
+  },
+};
+
+export const galleryProducts: Product[] = Object.entries(categoryPhotos).flatMap(([category, photos]) => {
+  const copy = galleryProductCopy[category];
+
+  return photos.map((photo, index) => {
+    const optionNumber = index + 1;
+
+    return {
+      slug: `${category}-option-${optionNumber}`,
+      name: `${copy.name} ${optionNumber}`,
+      category,
+      occasions: copy.occasions,
+      summary: copy.summary,
+      description: copy.description,
+      images: [photo],
+      details: [copy.details],
+    };
+  });
+});
+
+export const allProducts = [...products, ...galleryProducts];
+
 export const reviews = [
   {
     quote:
@@ -268,12 +337,16 @@ export function getProductsByCategory(slug: string) {
   return products.filter((product) => product.category === slug);
 }
 
+export function getGalleryProductsByCategory(slug: string) {
+  return galleryProducts.filter((product) => product.category === slug);
+}
+
 export function getProductsByOccasion(slug: string) {
-  return products.filter((product) => product.occasions.includes(slug));
+  return allProducts.filter((product) => product.occasions.includes(slug));
 }
 
 export function getProduct(slug: string) {
-  return products.find((product) => product.slug === slug);
+  return allProducts.find((product) => product.slug === slug);
 }
 
 export function getCollection(type: CollectionType, slug: string) {

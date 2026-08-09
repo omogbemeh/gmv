@@ -7,8 +7,8 @@ import { SiteHeader } from "@/components/SiteHeader";
 import {
   buildWhatsAppLink,
   categories,
-  categoryPhotos,
   getCollection,
+  getGalleryProductsByCategory,
   getProductsByCategory,
 } from "@/lib/catalog";
 
@@ -44,7 +44,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   const filteredProducts = getProductsByCategory(slug);
   const whatsappHref = buildWhatsAppLink(`${category.name} products`);
-  const photos = categoryPhotos[slug] ?? [];
+  const galleryProducts = getGalleryProductsByCategory(slug);
 
   return (
     <main className="min-h-screen bg-cream text-ink">
@@ -77,23 +77,15 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         </div>
       </section>
 
-      {photos.length > 0 ? (
+      {galleryProducts.length > 0 ? (
         <section className="mx-auto w-full max-w-7xl px-5 pb-20 sm:px-8 lg:px-10">
           <div className="border-b border-ink/10 pb-8">
             <p className="section-kicker">Photo gallery</p>
             <h2 className="section-title">More {category.name} options.</h2>
           </div>
-          <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {photos.map((photo, index) => (
-              <div key={photo} className="relative aspect-[3/4] overflow-hidden bg-white">
-                <Image
-                  src={photo}
-                  alt={`${category.name} option ${index + 1} at Goodness and Mercy Ventures`}
-                  fill
-                  sizes="(min-width: 1024px) 23vw, (min-width: 640px) 45vw, 90vw"
-                  className="object-cover"
-                />
-              </div>
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {galleryProducts.map((product) => (
+              <ProductCard key={product.slug} product={product} />
             ))}
           </div>
         </section>

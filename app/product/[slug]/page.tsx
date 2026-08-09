@@ -4,14 +4,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FloatingWhatsAppButton } from "@/components/FloatingWhatsAppButton";
 import { SiteHeader } from "@/components/SiteHeader";
-import { buildWhatsAppLink, categories, getProduct, products } from "@/lib/catalog";
+import { allProducts, buildWhatsAppLink, categories, getProduct } from "@/lib/catalog";
 
 type ProductPageProps = {
   params: Promise<{ slug: string }>;
 };
 
 export function generateStaticParams() {
-  return products.map((product) => ({ slug: product.slug }));
+  return allProducts.map((product) => ({ slug: product.slug }));
 }
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
