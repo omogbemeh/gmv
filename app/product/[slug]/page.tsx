@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FloatingWhatsAppButton } from "@/components/FloatingWhatsAppButton";
 import { SiteHeader } from "@/components/SiteHeader";
-import { buildWhatsAppLink, categories, getProduct, occasions, products } from "@/lib/catalog";
+import { buildWhatsAppLink, categories, getProduct, products } from "@/lib/catalog";
 
 type ProductPageProps = {
   params: Promise<{ slug: string }>;
@@ -25,9 +25,6 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   return {
     title: `${product.name} | Goodness & Mercy Ventures`,
     description: product.summary,
-    openGraph: {
-      images: product.images.slice(0, 1),
-    },
   };
 }
 
@@ -40,7 +37,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
   }
 
   const category = categories.find((item) => item.slug === product.category);
-  const productOccasions = occasions.filter((occasion) => product.occasions.includes(occasion.slug));
   const whatsappHref = buildWhatsAppLink(product.name);
 
   return (
@@ -83,24 +79,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <h1 className="mt-4 font-serif text-5xl leading-none sm:text-7xl">{product.name}</h1>
           <p className="mt-6 text-lg leading-8 text-ink/70">{product.description}</p>
 
-          <div className="mt-8 flex flex-wrap gap-2">
-            {productOccasions.map((occasion) => (
-              <Link
-                key={occasion.slug}
-                href={occasion.href}
-                className="rounded-full border border-hot-pink/20 px-4 py-2 text-sm font-semibold text-hot-pink transition hover:border-hot-pink"
-              >
-                {occasion.name}
-              </Link>
-            ))}
-          </div>
-
-          <div className="mt-10 border-y border-hot-pink/14">
-            {product.details.map((detail) => (
-              <p key={detail} className="border-b border-hot-pink/14 py-4 leading-7 text-ink/68 last:border-b-0">
-                {detail}
-              </p>
-            ))}
+          <div className="mt-10 bg-white p-6 shadow-xl shadow-hot-pink/8">
+            <p className="section-kicker">Ready to match it?</p>
+            <p className="mt-4 leading-8 text-ink/68">{product.details.join(" ")}</p>
           </div>
 
           <a className="button-primary mt-8 w-full sm:w-fit" href={whatsappHref}>

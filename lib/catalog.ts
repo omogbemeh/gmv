@@ -20,6 +20,8 @@ export type Product = {
   details: string[];
 };
 
+const imagePath = (path: string) => `/assets/images/${path}`;
+
 export const whatsappNumber = "2348085813294";
 
 export function buildWhatsAppLink(context: string) {
@@ -30,21 +32,11 @@ export function buildWhatsAppLink(context: string) {
 
 export const categories: Collection[] = [
   {
-    slug: "aso-oke",
-    name: "Aso-Oke",
-    eyebrow: "Yoruba ceremony weave",
-    description: "Aso-oke for brides, grooms, parents, family sets, engagement looks, and premium aso-ebi.",
-    image:
-      "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=1000&q=85",
-    href: "/categories/aso-oke",
-  },
-  {
     slug: "lace",
     name: "Lace",
     eyebrow: "Owambe favourite",
     description: "Rich lace for weddings, birthdays, thanksgiving, mothers of the day, and stylish party guests.",
-    image:
-      "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=1000&q=85",
+    image: imagePath("lace/lace-1.jpeg"),
     href: "/categories/lace",
   },
   {
@@ -52,18 +44,24 @@ export const categories: Collection[] = [
     name: "Ankara",
     eyebrow: "Colourful everyday luxury",
     description: "Vibrant Ankara prints for birthdays, family events, church looks, and coordinated group outfits.",
-    image:
-      "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=1000&q=85",
+    image: imagePath("ankara/ankara-1.jpeg"),
     href: "/categories/ankara",
   },
   {
-    slug: "accessories",
-    name: "Accessories",
-    eyebrow: "Full outfit finish",
-    description: "Jewelry, bags, watches, gele-friendly pieces, and Italian shoes to complete the look.",
-    image:
-      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1000&q=85",
-    href: "/categories/accessories",
+    slug: "jewelry",
+    name: "Jewelry",
+    eyebrow: "Gele-friendly shine",
+    description: "Necklaces, earrings, and statement pieces selected to lift lace, Ankara, and evening looks.",
+    image: imagePath("accessories/jewelery/jewelry-1.jpeg"),
+    href: "/categories/jewelry",
+  },
+  {
+    slug: "bags",
+    name: "Bags",
+    eyebrow: "Occasion finish",
+    description: "Structured bags and clutches for church, reception, birthday dinner, and owambe styling.",
+    image: imagePath("accessories/bags/bag-1.jpeg"),
+    href: "/categories/bags",
   },
 ];
 
@@ -73,8 +71,7 @@ export const occasions: Collection[] = [
     name: "Weddings",
     eyebrow: "Engagement to reception",
     description: "Shop lace, aso-oke, jewelry, shoes, and bags for brides, mothers, friends, and wedding guests.",
-    image:
-      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=85",
+    image: imagePath("lace/lace-10.jpeg"),
     href: "/occasions/weddings",
   },
   {
@@ -82,8 +79,7 @@ export const occasions: Collection[] = [
     name: "Aso-Ebi Groups",
     eyebrow: "Family and friend sets",
     description: "Coordinate colours, fabrics, and accessories for friends, family, societies, and event committees.",
-    image:
-      "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1000&q=85",
+    image: imagePath("ankara/ankara-8.jpeg"),
     href: "/occasions/aso-ebi-groups",
   },
   {
@@ -91,108 +87,160 @@ export const occasions: Collection[] = [
     name: "Birthdays",
     eyebrow: "Birthday slay",
     description: "Statement lace, Ankara, jewelry, heels, and bags for celebrants, dinners, shoots, and parties.",
-    image:
-      "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1000&q=85",
+    image: imagePath("accessories/bags/bag-7.jpeg"),
     href: "/occasions/birthdays",
   },
 ];
 
 export const products: Product[] = [
   {
-    slug: "fuchsia-crystal-lace",
-    name: "Fuchsia Crystal Lace",
+    slug: "premium-lace-selection",
+    name: "Premium Lace Selection",
     category: "lace",
-    occasions: ["weddings", "birthdays"],
-    summary: "Hot-pink lace with shine for owambe entrances, birthday shoots, and wedding guest looks.",
+    occasions: ["weddings", "aso-ebi-groups", "birthdays"],
+    summary: "Lace options for owambe entrances, wedding guests, birthdays, and aso-ebi groups.",
     description:
-      "A bold luxury lace for Nigerian customers who want colour, shine, and a polished look for owambe, receptions, and milestone celebrations.",
-    images: [
-      "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=1200&q=88",
-      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1200&q=85",
-    ],
+      "A curated lace selection for customers who want colour, shine, and a polished Nigerian occasion look.",
+    images: [imagePath("lace/lace-1.jpeg"), imagePath("lace/lace-10.jpeg"), imagePath("lace/lace-11.jpeg")],
     details: [
-      "Ideal for weddings, birthdays, and Saturday owambe",
-      "Pairs well with cream, gold, or silver gele and accessories",
-      "Ask on WhatsApp for current yardage and matching pieces",
+      "Send your event colour and we will confirm what is currently available, suggest matching jewelry or bags, and help you choose a polished option before you visit.",
     ],
   },
   {
-    slug: "cream-gold-aso-oke",
-    name: "Cream & Gold Aso-Oke Set",
-    category: "aso-oke",
+    slug: "aso-ebi-lace-options",
+    name: "Aso-Ebi Lace Options",
+    category: "lace",
     occasions: ["weddings", "aso-ebi-groups"],
-    summary: "Cream and gold aso-oke for engagement, introduction, and elegant family styling.",
+    summary: "Coordinated lace directions for family, friends, societies, and event committees.",
     description:
-      "A classic Yoruba ceremony direction with a soft cream base and gold-toned richness, suited for coordinated family outfits and premium aso-ebi.",
-    images: [
-      "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=1200&q=88",
-      "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=85",
-    ],
+      "A practical starting point for groups choosing one fabric direction for a wedding, introduction, or party.",
+    images: [imagePath("lace/lace-16.jpeg"), imagePath("lace/lace-7.jpeg"), imagePath("lace/lace-6.jpeg")],
     details: [
-      "Strong choice for traditional weddings and introductions",
-      "Works for bride, groom, parents, and family aso-ebi sets",
-      "Available options may vary in-store, so confirm on WhatsApp",
+      "Share your group size, budget range, and preferred colour family on WhatsApp so we can guide you toward options that work for everyone.",
+    ],
+  },
+  {
+    slug: "ankara-occasion-prints",
+    name: "Ankara Occasion Prints",
+    category: "ankara",
+    occasions: ["birthdays", "aso-ebi-groups"],
+    summary: "Vibrant Ankara prints for birthdays, church events, and coordinated family looks.",
+    description:
+      "Colourful Ankara options for celebrants, family gatherings, thanksgiving, and friends who want a joyful look.",
+    images: [imagePath("ankara/ankara-1.jpeg"), imagePath("ankara/ankara-2.jpeg"), imagePath("ankara/ankara-3.jpeg")],
+    details: [
+      "Send screenshots or colour inspiration and we will help narrow the options before you come to the Ikorodu store.",
+    ],
+  },
+  {
+    slug: "bold-ankara-selection",
+    name: "Bold Ankara Selection",
+    category: "ankara",
+    occasions: ["birthdays", "aso-ebi-groups"],
+    summary: "Stronger print directions for customers who want colour and personality.",
+    description:
+      "A confident Ankara edit for birthday looks, group outfits, and statement traditional styling.",
+    images: [imagePath("ankara/ankara-8.jpeg"), imagePath("ankara/ankara-9.jpeg"), imagePath("ankara/ankara-12.jpeg")],
+    details: [
+      "Ask about current yardage, repeat pattern, and matching accessories so the full outfit feels complete.",
     ],
   },
   {
     slug: "statement-jewelry-set",
     name: "Statement Jewelry Set",
-    category: "accessories",
+    category: "jewelry",
     occasions: ["weddings", "birthdays", "aso-ebi-groups"],
     summary: "Jewelry for finishing lace, iro and buba, gele, and evening occasion looks.",
     description:
       "A bright finishing set for customers who want their outfit, gele, bag, and shoes to feel coordinated without losing elegance.",
     images: [
-      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1200&q=88",
-      "https://images.unsplash.com/photo-1506629905607-d9c297d4f5f5?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=1200&q=85",
+      imagePath("accessories/jewelery/jewelry-1.jpeg"),
+      imagePath("accessories/jewelery/jewelry-2.jpeg"),
+      imagePath("accessories/jewelery/jewelry-3.jpeg"),
     ],
-    details: [
-      "Complements lace, aso-oke, Ankara, and adire looks",
-      "Good for wedding guests, celebrants, and gifting",
-      "Send a photo of your fabric or outfit for matching",
-    ],
+    details: ["Send a photo of your fabric, gele, or dress and we will help match the jewelry to the full look."],
   },
   {
-    slug: "italian-heels-and-clutch",
-    name: "Italian Heels & Clutch",
-    category: "accessories",
+    slug: "occasion-bags-selection",
+    name: "Occasion Bags Selection",
+    category: "bags",
     occasions: ["weddings", "birthdays"],
-    summary: "Italian shoes and clutch pairings for church, reception, dinner, and party looks.",
+    summary: "Bags and clutches for church, receptions, birthday dinners, and party looks.",
     description:
-      "A polished accessory pairing for wedding guests, celebrants, and customers completing a premium Nigerian occasion outfit.",
-    images: [
-      "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=1200&q=88",
-      "https://images.unsplash.com/photo-1594223274512-ad4803739b7c?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=1200&q=85",
-    ],
+      "A polished bag edit for wedding guests, celebrants, and customers completing a premium Nigerian occasion outfit.",
+    images: [imagePath("accessories/bags/bag-1.jpeg"), imagePath("accessories/bags/bag-2.jpeg"), imagePath("accessories/bags/bag-3.jpeg")],
     details: [
-      "Best matched in-store or via WhatsApp photos",
-      "Ask for current sizes before visiting",
-      "Pairs well with lace, Ankara, aso-oke, and dinner dresses",
+      "Send your outfit colour and occasion type so we can suggest bags that finish the look without competing with it.",
     ],
   },
-  {
-    slug: "ankara-celebration-fabric",
-    name: "Ankara Celebration Fabric",
-    category: "ankara",
-    occasions: ["birthdays", "aso-ebi-groups"],
-    summary: "Vibrant Ankara for birthday outfits, family events, and coordinated group styling.",
-    description:
-      "A colourful, expressive fabric option for celebrants, church groups, family events, and friends who want a joyful but elevated look.",
-    images: [
-      "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=1200&q=88",
-      "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1200&q=85",
-      "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1200&q=85",
-    ],
-    details: [
-      "Great for birthdays, family parties, and aso-ebi groups",
-      "Ask for matching accessories and colour ideas",
-      "Colour options can be sourced based on your event theme",
-    ],
-  },
+];
+
+export const categoryPhotos: Record<string, string[]> = {
+  lace: [
+    "lace-1",
+    "lace-2",
+    "lace-3",
+    "lace-4",
+    "lace-5",
+    "lace-6",
+    "lace-7",
+    "lace-8",
+    "lace-9",
+    "lace-10",
+    "lace-11",
+    "lace-12",
+    "lace-13",
+    "lace-14",
+    "lace-15",
+    "lace-16",
+    "lace-17",
+    "lace-18",
+    "lace-19",
+  ].map((name) => imagePath(`lace/${name}.jpeg`)),
+  ankara: [
+    "ankara-1",
+    "ankara-2",
+    "ankara-3",
+    "ankara-4",
+    "ankara-5",
+    "ankara-6",
+    "ankara-7",
+    "ankara-8",
+    "ankara-9",
+    "ankara-10",
+    "ankara-11",
+    "ankara-12",
+  ].map((name) => imagePath(`ankara/${name}.jpeg`)),
+  jewelry: [
+    "jewelry-1",
+    "jewelry-2",
+    "jewelry-3",
+    "jewelry-4",
+    "jewelry-5",
+    "jewelry-6",
+    "jewelry-7",
+    "jewelry-8",
+    "jewelry-9",
+    "jewelry-10",
+    "jewelry-11",
+  ].map((name) => imagePath(`accessories/jewelery/${name}.jpeg`)),
+  bags: [
+    "bag-1",
+    "bag-2",
+    "bag-3",
+    "bag-4",
+    "bag-5",
+    "bag-6",
+    "bag-7",
+    "bag-8",
+    "bag-9",
+  ].map((name) => imagePath(`accessories/bags/${name}.jpeg`)),
+};
+
+export const customerPhotos = [
+  imagePath("customer-photos/customer-review-1.jpeg"),
+  imagePath("customer-photos/customer-review-2.jpeg"),
+  imagePath("customer-photos/customer-review-3.jpeg"),
 ];
 
 export const reviews = [

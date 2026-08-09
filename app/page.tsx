@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { CollectionCard } from "@/components/CollectionCard";
+import { CustomerPhotos } from "@/components/CustomerPhotos";
 import { FloatingWhatsAppButton } from "@/components/FloatingWhatsAppButton";
 import { ProductCarousel } from "@/components/ProductCarousel";
 import { ReviewCarousel } from "@/components/ReviewCarousel";
@@ -7,6 +8,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import {
   buildWhatsAppLink,
   categories,
+  customerPhotos,
   occasions,
   products,
   reviews,
@@ -103,6 +105,8 @@ export default function Home() {
       >
         <ProductCarousel products={products} />
       </section>
+
+      <CustomerPhotos photos={customerPhotos} />
 
       <ReviewCarousel reviews={reviews} />
 
