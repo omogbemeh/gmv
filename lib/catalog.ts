@@ -71,7 +71,7 @@ export const occasions: Collection[] = [
     name: "Weddings",
     eyebrow: "Engagement to reception",
     description: "Shop lace, aso-oke, jewelry, shoes, and bags for brides, mothers, friends, and wedding guests.",
-    image: imagePath("lace/lace-10.jpeg"),
+    image: imagePath("customer-photos/wedding-photo-1.jpeg"),
     href: "/occasions/weddings",
   },
   {
@@ -79,7 +79,7 @@ export const occasions: Collection[] = [
     name: "Aso-Ebi Groups",
     eyebrow: "Family and friend sets",
     description: "Coordinate colours, fabrics, and accessories for friends, family, societies, and event committees.",
-    image: imagePath("ankara/ankara-8.jpeg"),
+    image: imagePath("customer-photos/aso-ebi-1.jpeg"),
     href: "/occasions/aso-ebi-groups",
   },
   {
@@ -87,7 +87,7 @@ export const occasions: Collection[] = [
     name: "Birthdays",
     eyebrow: "Birthday slay",
     description: "Statement lace, Ankara, jewelry, heels, and bags for celebrants, dinners, shoots, and parties.",
-    image: imagePath("accessories/bags/bag-7.jpeg"),
+    image: imagePath("customer-photos/wedding-photo-2.jpeg"),
     href: "/occasions/birthdays",
   },
 ];
@@ -238,6 +238,10 @@ export const categoryPhotos: Record<string, string[]> = {
 };
 
 export const customerPhotos = [
+  imagePath("customer-photos/wedding-photo-1.jpeg"),
+  imagePath("customer-photos/aso-ebi-1.jpeg"),
+  imagePath("customer-photos/wedding-photo-2.jpeg"),
+  imagePath("customer-photos/aso-ebi-2.jpeg"),
   imagePath("customer-photos/customer-review-1.jpeg"),
   imagePath("customer-photos/customer-review-2.jpeg"),
   imagePath("customer-photos/customer-review-3.jpeg"),

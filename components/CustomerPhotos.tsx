@@ -14,18 +14,19 @@ export function CustomerPhotos({ photos }: CustomerPhotosProps) {
             <h2 className="section-title">Styled for real occasions.</h2>
           </div>
           <p className="max-w-sm leading-7 text-ink/62">
-            A small lookbook from customers. More styles are available in-store and on WhatsApp.
+            Real wedding, aso-ebi, and occasion styling from customers. More styles are available in-store and on
+            WhatsApp.
           </p>
         </div>
 
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
-          {photos.slice(0, 3).map((photo, index) => (
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {photos.map((photo, index) => (
             <div key={photo} className="relative aspect-[3/4] overflow-hidden bg-cream">
               <Image
                 src={photo}
                 alt={`Goodness and Mercy Ventures customer style ${index + 1}`}
                 fill
-                sizes="(min-width: 768px) 31vw, 90vw"
+                sizes="(min-width: 1024px) 23vw, (min-width: 640px) 45vw, 90vw"
                 className="object-cover"
               />
             </div>

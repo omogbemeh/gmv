@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { FloatingWhatsAppButton } from "@/components/FloatingWhatsAppButton";
 import { SiteHeader } from "@/components/SiteHeader";
 import { allProducts, buildWhatsAppLink, categories, getProduct } from "@/lib/catalog";
+import { absoluteUrl, siteConfig } from "@/lib/seo";
 
 type ProductPageProps = {
   params: Promise<{ slug: string }>;
@@ -22,9 +23,35 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     return {};
   }
 
+  const category = categories.find((item) => item.slug === product.category);
+  const categoryName = category?.name ?? "Nigerian fashion";
+  const title = `${product.name} - ${categoryName} in Nigeria with International Shipping`;
+  const description = `${product.summary} Order from Goodness & Mercy Ventures in Lagos via WhatsApp, with shipping from Nigeria to local and international customers.`;
+
   return {
-    title: `${product.name} | Goodness & Mercy Ventures`,
-    description: product.summary,
+    title,
+    description,
+    alternates: {
+      canonical: `/product/${product.slug}`,
+    },
+    openGraph: {
+      type: "website",
+      url: `/product/${product.slug}`,
+      title,
+      description,
+      images: [
+        {
+          url: absoluteUrl(product.images[0]),
+          alt: product.name,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [absoluteUrl(product.images[0])],
+    },
   };
 }
 
@@ -38,9 +65,62 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   const category = categories.find((item) => item.slug === product.category);
   const whatsappHref = buildWhatsAppLink(product.name);
+  const productUrl = absoluteUrl(`/product/${product.slug}`);
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: product.name,
+      image: product.images.map((image) => absoluteUrl(image)),
+      description: product.description,
+      brand: {
+        "@type": "Brand",
+        name: siteConfig.name,
+      },
+      category: category?.name ?? product.category,
+      url: productUrl,
+      areaServed: siteConfig.markets.map((market) => ({
+        "@type": "Place",
+        name: market,
+      })),
+      potentialAction: {
+        "@type": "CommunicateAction",
+        target: whatsappHref,
+        name: "Ask about availability on WhatsApp",
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: absoluteUrl("/"),
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: category?.name ?? "Shop",
+          item: absoluteUrl(category?.href ?? "/"),
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: product.name,
+          item: productUrl,
+        },
+      ],
+    },
+  ];
 
   return (
     <main className="min-h-screen bg-cream text-ink">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <SiteHeader />
 
       <div className="mx-auto flex w-full max-w-7xl justify-end px-5 pt-6 sm:px-8 lg:px-10">
@@ -83,6 +163,15 @@ export default async function ProductPage({ params }: ProductPageProps) {
             <p className="section-kicker">Ready to match it?</p>
             <p className="mt-4 leading-8 text-ink/68">{product.details.join(" ")}</p>
           </div>
+
+          <section className="mt-6 bg-hot-pink/8 p-6">
+            <h2 className="font-serif text-3xl leading-none">Ships from Nigeria worldwide.</h2>
+            <p className="mt-4 leading-8 text-ink/68">
+              Goodness & Mercy Ventures serves shoppers in Lagos, across Nigeria, and international customers in
+              the UK, USA, Canada, Europe, and other markets. Message us on WhatsApp to confirm availability,
+              delivery timing, and the best way to ship this {category?.name.toLowerCase() ?? "item"} to you.
+            </p>
+          </section>
 
           <a className="button-primary mt-8 w-full sm:w-fit" href={whatsappHref}>
             Ask about this product on WhatsApp

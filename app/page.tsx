@@ -13,14 +13,45 @@ import {
   products,
   reviews,
 } from "@/lib/catalog";
+import { absoluteUrl, siteConfig } from "@/lib/seo";
 
 const whatsappHref = buildWhatsAppLink(
   "your latest lace, aso-oke, Ankara, and accessories",
 );
 
 export default function Home() {
+  const localBusinessJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ClothingStore",
+    name: siteConfig.name,
+    url: absoluteUrl("/"),
+    image: absoluteUrl("/assets/images/hero.webp"),
+    telephone: siteConfig.phone,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "32 NBC Road",
+      addressLocality: "Ikorodu",
+      addressRegion: "Lagos",
+      addressCountry: "NG",
+    },
+    areaServed: siteConfig.markets.map((market) => ({
+      "@type": "Place",
+      name: market,
+    })),
+    description: siteConfig.description,
+    potentialAction: {
+      "@type": "CommunicateAction",
+      target: whatsappHref,
+      name: "Shop on WhatsApp",
+    },
+  };
+
   return (
     <main className="min-h-screen bg-cream text-ink">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+      />
       <SiteHeader overlay />
 
       <section className="relative min-h-screen overflow-hidden bg-ink text-cream">
@@ -45,7 +76,8 @@ export default function Home() {
             <p className="mt-6 max-w-2xl text-lg leading-8 text-cream/78">
               Premium lace, Ankara, Adire, Aso-Oke, jewelry, watches, Italian
               shoes, and bags for Nigerian weddings, birthdays, thanksgiving,
-              owambe, and beautifully coordinated aso-ebi orders.
+              owambe, and beautifully coordinated aso-ebi orders, with shipping
+              from Nigeria to local and international customers.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <a className="button-primary" href={whatsappHref}>
@@ -123,7 +155,9 @@ export default function Home() {
             <p className="leading-7 text-ink/65">
               Come in with your colour inspiration, event date, aso-ebi brief,
               or style screenshots. For the fastest response, start with
-              WhatsApp and include photos of what you have in mind.
+              WhatsApp and include photos of what you have in mind. We serve
+              customers in Nigeria and abroad, including the UK, USA, Canada,
+              Europe, and other markets.
             </p>
             <a
               className="button-secondary mt-6 w-fit"

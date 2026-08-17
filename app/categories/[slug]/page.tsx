@@ -11,6 +11,7 @@ import {
   getGalleryProductsByCategory,
   getProductsByCategory,
 } from "@/lib/catalog";
+import { absoluteUrl, siteConfig } from "@/lib/seo";
 
 type CategoryPageProps = {
   params: Promise<{ slug: string }>;
@@ -28,9 +29,33 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     return {};
   }
 
+  const title = `${category.name} in Nigeria - Shop with International Shipping`;
+  const description = `${category.description} Shop from Goodness & Mercy Ventures in Ikorodu, Lagos, with delivery across Nigeria and international shipping from Nigeria.`;
+
   return {
-    title: `${category.name} | Goodness & Mercy Ventures`,
-    description: category.description,
+    title,
+    description,
+    alternates: {
+      canonical: category.href,
+    },
+    openGraph: {
+      type: "website",
+      url: category.href,
+      title,
+      description,
+      images: [
+        {
+          url: absoluteUrl(category.image),
+          alt: `${category.name} at ${siteConfig.name}`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [absoluteUrl(category.image)],
+    },
   };
 }
 
@@ -45,9 +70,31 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   const filteredProducts = getProductsByCategory(slug);
   const whatsappHref = buildWhatsAppLink(`${category.name} products`);
   const galleryProducts = getGalleryProductsByCategory(slug);
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: absoluteUrl("/"),
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: category.name,
+        item: absoluteUrl(category.href),
+      },
+    ],
+  };
 
   return (
     <main className="min-h-screen bg-cream text-ink">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <SiteHeader overlay />
       <section className="relative min-h-[62vh] overflow-hidden bg-ink text-cream">
         <Image src={category.image} alt={`${category.name} collection`} fill priority sizes="100vw" className="object-cover" />
@@ -68,6 +115,14 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           <a className="button-secondary" href={whatsappHref}>
             Ask on WhatsApp
           </a>
+        </div>
+        <div className="mt-8 bg-white p-6">
+          <h2 className="font-serif text-3xl leading-none">Available in Nigeria and overseas.</h2>
+          <p className="mt-4 leading-8 text-ink/66">
+            Shop {category.name.toLowerCase()} from Ikorodu, Lagos, with delivery support for customers in Nigeria,
+            the UK, USA, Canada, Europe, and other international markets. Send your event date, colour direction,
+            and quantity on WhatsApp for current options.
+          </p>
         </div>
 
         <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">

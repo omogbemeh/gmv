@@ -5,6 +5,7 @@ import { FloatingWhatsAppButton } from "@/components/FloatingWhatsAppButton";
 import { ProductCard } from "@/components/ProductCard";
 import { SiteHeader } from "@/components/SiteHeader";
 import { buildWhatsAppLink, getCollection, getProductsByOccasion, occasions } from "@/lib/catalog";
+import { absoluteUrl, siteConfig } from "@/lib/seo";
 
 type OccasionPageProps = {
   params: Promise<{ slug: string }>;
@@ -22,9 +23,33 @@ export async function generateMetadata({ params }: OccasionPageProps): Promise<M
     return {};
   }
 
+  const title = `${occasion.name} Outfits from Nigeria - Fabrics & Accessories`;
+  const description = `${occasion.description} Shop Nigerian occasion looks from Lagos with WhatsApp ordering and international shipping from Nigeria.`;
+
   return {
-    title: `${occasion.name} Outfits | Goodness & Mercy Ventures`,
-    description: occasion.description,
+    title,
+    description,
+    alternates: {
+      canonical: occasion.href,
+    },
+    openGraph: {
+      type: "website",
+      url: occasion.href,
+      title,
+      description,
+      images: [
+        {
+          url: absoluteUrl(occasion.image),
+          alt: `${occasion.name} styling at ${siteConfig.name}`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [absoluteUrl(occasion.image)],
+    },
   };
 }
 
@@ -38,9 +63,31 @@ export default async function OccasionPage({ params }: OccasionPageProps) {
 
   const filteredProducts = getProductsByOccasion(slug);
   const whatsappHref = buildWhatsAppLink(`${occasion.name} styling`);
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: absoluteUrl("/"),
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: occasion.name,
+        item: absoluteUrl(occasion.href),
+      },
+    ],
+  };
 
   return (
     <main className="min-h-screen bg-cream text-ink">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <SiteHeader overlay />
       <section className="relative min-h-[62vh] overflow-hidden bg-ink text-cream">
         <Image src={occasion.image} alt={`${occasion.name} styling`} fill priority sizes="100vw" className="object-cover" />
@@ -61,6 +108,14 @@ export default async function OccasionPage({ params }: OccasionPageProps) {
           <a className="button-secondary" href={whatsappHref}>
             Ask on WhatsApp
           </a>
+        </div>
+        <div className="mt-8 bg-white p-6">
+          <h2 className="font-serif text-3xl leading-none">Planning from Nigeria or abroad?</h2>
+          <p className="mt-4 leading-8 text-ink/66">
+            Goodness & Mercy Ventures helps customers shop for {occasion.name.toLowerCase()} in Lagos, across
+            Nigeria, and internationally. Send your event brief on WhatsApp and we can guide fabric, bag, jewelry,
+            colour, and shipping options.
+          </p>
         </div>
 
         <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
